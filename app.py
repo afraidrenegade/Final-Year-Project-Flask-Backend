@@ -91,4 +91,4 @@ def predict_food():
     })
 
 if __name__ == '__main__':
-    app.run(debug=False, hos='0.0.0.0')
+    app.run(debug=False, hos='0.0.0.0', port=5000)
