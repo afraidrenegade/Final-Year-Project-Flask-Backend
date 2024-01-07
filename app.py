@@ -84,6 +84,7 @@ def predict_food():
 
     # Prepare response data for foods not from the user's county
     not_from_your_county_data = replace_empty_with_symbol(recommended_foods_data[recommended_foods_data['FOOD NAME'].isin(unmatched_crops)][response_columns].to_dict(orient='records'), symbol='-')
+    not_from_your_county_data = replace_empty_with_symbol(recommended_foods_data[recommended_foods_data['FOOD NAME'].isin(unmatched_crops)][response_columns].to_dict(orient='records'), symbol='-')
 
     # Return the list of recommended foods from the user's county, not from the user's county, matched crops, and unmatched crops
     return jsonify({
@@ -99,5 +100,13 @@ def replace_empty_with_symbol(records, symbol='-'):
                 record[key] = symbol
     return records
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+def replace_empty_with_symbol(records, symbol='-'):
+    # Iterate through each record and replace empty values with the specified symbol
+    for record in records:
+        for key, value in record.items():
+            if pd.isnull(value):
+                record[key] = symbol
+    return records
+
+if __name__ == '__main__':
+    app.run(debug=True,    \)
